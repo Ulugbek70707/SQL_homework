@@ -340,8 +340,7 @@ INSERT INTO Orders VALUES
 (40, 40, 1, '2024-03-09', 1, 1200.00);
 
 --1
-SELECT TOP 5 *
-FROM Employees;
+SELECT TOP 5 * FROM Employees;
 
 --2
 Select distinct category from Products
@@ -415,3 +414,48 @@ Select * from Employees
  --17
 select*from Products
 where  ProductName  like '%e%'
+
+--18
+Select*from Employees
+where DepartmentName in ('HR','IT','Finance');
+--19
+Select*from Customers
+order by City asc, PostalCode desc;
+--20
+SELECT TOP(5) *
+FROM Sales
+ORDER BY SaleAmount DESC;
+
+--21
+SELECT 
+    EmployeeID,
+    (FirstName + ' ' + LastName) AS FullName,
+    DepartmentName,
+    Salary,
+    HireDate
+FROM Employees;
+--22
+Select distinct Category, ProductName, Price from Products
+where Price>50
+--23
+Select * from Products
+where Price<(SELECT AVG(Price) * 0.1 FROM Products);
+
+--24
+SELECT * FROM Employees
+WHERE Age < 30 AND DepartmentName IN ('HR', 'IT');
+
+--25
+Select*from Customers
+where Email like '%@gmail.com'
+
+--26
+Select*from Employees
+where Salary>ALL(SELECT Salary FROM Employees WHERE DepartmentName='Sales');
+
+--27
+Select*from Orders
+where OrderDate Between Getdate()-180 and Getdate() 
+
+
+
