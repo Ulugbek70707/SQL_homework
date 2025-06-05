@@ -89,16 +89,43 @@ as Pivottable;
 Select*from Population_Each_City
 
 --19
---Using Invoices table, show top 3 customers with the highest total invoice amount. Return CustomerID and Totalspent.
-Select top 3  by totalamount from Invoices
+	SELECT TOP 3  CustomerID, SUM(TotalAmount) AS TotalSpent
+FROM 
+    Invoices
+GROUP BY 
+    CustomerID
+	ORDER BY 
+    TotalSpent DESC;
 
 --20
---Transform Population_Each_Year table to its original format (City_Population).
+SELECT 
+    City,
+    Year,
+    Population
+INTO City_Population
+FROM 
+    Population_Each_Year
+UNPIVOT (
+    Population FOR Year IN ([2012], [2013])
+) AS unpvt;
 
 
 --21
---Using Products and Sales tables, list product names and the number of times each has been sold. (Research for Joins)
-
+Select P.ProductName, count(S.SaleId) as number_of_Sales from Products as P
+inner join Sales as S
+on S.ProductID=P.ProductID
+group by ProductName
+Order by number_of_Sales DESC
 
 --22
---Transform Population_Each_City table to its original format (City_Population).
+SELECT 
+    Year,
+    City,
+    Population
+INTO City_Population
+FROM 
+    Population_Each_City
+UNPIVOT (
+    Population FOR City IN ([Chilonzor], [Yakkasaroy], [Mirobod],[Yashnobod],[Bektemir])
+) AS unpvt;
+
