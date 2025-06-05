@@ -98,9 +98,16 @@ group by DepartmentName
 having Avg(salary)>65000
 
 --23
---Write a query to find total amount for the orders which weights more than $50 for each customer along with their least purchases.(least amount might be lower than 50, use tsql2012.sales.orders table,freight col, ask ur assistant to give the TSQL2012 database).
-Select*from Orders
-
+SELECT 
+    custid,
+    SUM(CASE WHEN freight > 50 THEN freight ELSE 0 END) AS TotalFreightOver50,
+    MIN(freight) AS LeastPurchaseFreight
+FROM 
+    TSQL2012.Sales.Orders
+GROUP BY 
+    custid
+ORDER BY 
+    TotalFreightOver50 DESC;
 
 --24
 Select  year(OrderDate) as orderyear, month(OrderDate) as ordermonth, sum(totalamount) as Total_Amount_month, count(distinct ProductID) as unique_products_sold from Orders
