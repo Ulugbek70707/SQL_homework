@@ -126,3 +126,25 @@ on P.OrderID=O.OrderID
 join Products Pro
 on O.ProductID=Pro.ProductID
 where P.Amount<>(O.Quantity*Pro.Price);
+
+--23
+Select*from Students S
+left join Enrollments E
+on S.StudentID=E.StudentID
+where E.EnrollmentID is null
+
+--24
+Select*from Employees as E1
+join Employees as E2
+on E1.EmployeeID=E2.ManagerID
+where E1.Salary<=E2.Salary 
+order by E2.ManagerID
+
+--25
+Select*from Customers1 C
+join Orders O
+on C.CustomerID=O.CustomerID
+left join Payments P
+on O.OrderID=P.OrderID
+where P.PaymentDate is null
+order by C.CustomerID
