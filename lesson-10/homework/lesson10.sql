@@ -127,3 +127,66 @@ INNER JOIN (
 ) AS DAvg ON E.DepartmentID = DAvg.DepartmentID
 WHERE 
     E.Salary > DAvg.AvgSalary;
+
+--20
+Select O.OrderID,O.OrderDate from Orders O
+left join Payments P
+on O.OrderID=P.OrderID
+where O.OrderDate<'2020-01-01' and P.OrderID is null
+
+--21
+Select P.ProductID, P.ProductName from Products P
+left join Categories C
+on P.Category=C.CategoryID
+where C.CategoryID is null
+
+--22
+SELECT 
+    E1.Name AS Employee1, 
+    E2.Name AS Employee2, 
+    E1.ManagerID, 
+    E1.Salary
+FROM 
+    Employees E1
+JOIN 
+    Employees E2 
+    ON E1.ManagerID = E2.ManagerID 
+    AND E1.EmployeeID < E2.EmployeeID 
+WHERE 
+    E1.Salary > 60000 
+    AND E2.Salary > 60000;
+
+--23
+Select E.Name, D.DepartmentName from Employees E
+join Departments D
+on E.DepartmentID=D.DepartmentID
+where D.DepartmentName like 'M%'
+
+--24
+Select S.SaleID, P.ProductName, S.SaleAmount from Products P
+join Sales S
+on P.ProductID=S.ProductID
+where S.SaleAmount>500
+
+--25
+SELECT 
+    S.StudentID, 
+    S.Name
+FROM 
+    Students S
+LEFT JOIN Enrollments E ON S.StudentID = E.StudentID
+LEFT JOIN Courses C ON E.CourseID = C.CourseID AND C.CourseName = 'Math 101'
+WHERE 
+    C.CourseID IS NULL;
+
+--26
+Select O.OrderID,O.OrderDate,P.PaymentID from Orders O
+left join Payments P
+on O.OrderID=P.OrderID
+where P.PaymentID is null
+
+--27
+Select P.ProductID, P.ProductName, C.CategoryName from Products P
+inner join Categories C
+on P.Category=C.CategoryID
+where C.CategoryName in ('Electronics','Furniture')
